@@ -18,6 +18,3 @@
 
 # Ignore all coverate files
 /coverge/*
-
-#Ignore all emacs backfiles
-/*~
