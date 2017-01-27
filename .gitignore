@@ -17,7 +17,7 @@
 /tmp
 
 # Ignore all coverate files
-/coverge/*
+/coverage/*
 
 #Ignore all emacs backfiles
 /*~
