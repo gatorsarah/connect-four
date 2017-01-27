@@ -1,0 +1,29 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/sajohnson/development/connect-four/app/models/slot.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/sajohnson/development/connect-four/app/controllers/application_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/sajohnson/development/connect-four/app/helpers/application_helper.rb": [
+        0,
+        0
+      ]
+    },
+    "timestamp": 1485544329
+  }
+}
