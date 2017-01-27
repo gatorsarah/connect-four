@@ -4,14 +4,13 @@ class ConnectFourGame
 
   def initialize
     #game board for now is going to be columns X rows
-    @game_board = [][]
-    
-  end
+    @game_board = Array.new(ENV['MAX_COLUMNS'].to_i) { Array.new }
+   end
 
   def record_users_move(column)
-    raise ColumnFull.new if is_column_full?
+    raise ColumnFull.new if is_column_full?(column)
 
-    
+    take_slot(column, "human")
   end
 
   def make_computers_move
@@ -25,11 +24,15 @@ class ConnectFourGame
   def on_a_streak?
   end
 
-  def take_slot
-  end
+  def take_slot(column, owner)
+     @game_board[column] << Slot.new(owner)
+   end
 
   def is_column_full?(column)
-    @game_board[column].count >= ENV['MAX_ROWS']
+    return false if @game_board[column].nil?
+    @game_board[column].count >= ENV['MAX_ROWS'].to_i
   end
-  
+
+  def is_there_a_connect_four?
+  end
 end
