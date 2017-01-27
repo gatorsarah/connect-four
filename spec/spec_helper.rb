@@ -11,3 +11,7 @@ SimpleCov.start 'rails' do
 end
 
 require File.expand_path('../../config/environment', __FILE__)
+
+Dir[Rails.root.join('lib/**/*.rb')].each do |f|
+  require f
+end

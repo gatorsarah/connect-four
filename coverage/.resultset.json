@@ -1,6 +1,52 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/sajohnson/development/connect-four/lib/errors/column_full.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/sajohnson/development/connect-four/lib/games/connect_four_game.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        null,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null
+      ],
       "/Users/sajohnson/development/connect-four/app/models/slot.rb": [
         1,
         1,
@@ -24,6 +70,6 @@
         0
       ]
     },
-    "timestamp": 1485545362
+    "timestamp": 1485553556
   }
 }
