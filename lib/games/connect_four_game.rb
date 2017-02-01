@@ -26,9 +26,7 @@ class ConnectFourGame
   end
 
   def streak_count(column, row, direction, owner)
- 
-    if is_row_valid?(column, row) && is_column_valid?(column) 
-
+     if is_row_valid?(column, row) && is_column_valid?(column) 
       if @game_board[column][row].user == owner
 
         next_row = row if direction == 'horizontal'
@@ -42,8 +40,6 @@ class ConnectFourGame
         current_count = streak_count(next_column, next_row, direction, owner)
         current_count = 1 if current_count.nil?
         current_count += 1
-
-        puts "on the way back: #{current_count}"
       end
     end
     current_count ||= 1
@@ -70,11 +66,10 @@ class ConnectFourGame
           up_count = streak_count(current_column + 1, current_row + 1, "diagonal up", owner)
           down_count = streak_count(current_column - 1, current_row - 1, "diagonal down", owner)
           match_count = [match_count, vertical_count, horizontal_count, up_count, down_count].max
-          puts "Found #{match_count}"
-        end
+         end
       end
     end
-    puts "final_match_count #{match_count}"
+
     match_count
   end
 
