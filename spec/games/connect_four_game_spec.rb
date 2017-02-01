@@ -11,6 +11,25 @@ describe ConnectFourGame do
   it 'should take a new slot' do
     game = ConnectFourGame.new
     game.record_users_move(3)
-   end
-  
+
+    expect(game.game_board[3].count).to eq 1
+    expect(game.game_board[0].count).to eq 0
+  end
+
+  it 'should find a winning horizontal row' do
+    game = ConnectFourGame.new
+    
+    game.game_board[1] << Slot.new('human')
+    game.game_board[1] << Slot.new('computer')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[3] << Slot.new('human')
+    game.game_board[3] << Slot.new('computer')
+    game.game_board[4] << Slot.new('human')
+    game.game_board[4] << Slot.new('computer')
+
+    expect(game.did_user_win? 'computer').to be true
+    expect(game.did_user_win? 'human').to be false
+    
+  end
 end
