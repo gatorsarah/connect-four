@@ -3,9 +3,7 @@ require 'spec_helper'
 describe ConnectFourGame do
 
   it 'should initialize a new game board' do
-
     game = ConnectFourGame.new
-
   end
 
   it 'should take a new slot' do
@@ -30,6 +28,68 @@ describe ConnectFourGame do
 
     expect(game.did_user_win? 'computer').to be true
     expect(game.did_user_win? 'human').to be false
+    
+  end
+
+   it 'should find a winning vertical row' do
+    game = ConnectFourGame.new
+    
+    game.game_board[1] << Slot.new('human')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[3] << Slot.new('human')
+    game.game_board[3] << Slot.new('computer')
+    game.game_board[4] << Slot.new('human')
+
+    expect(game.did_user_win? 'computer').to be true
+    expect(game.did_user_win? 'human').to be false
+    
+   end
+
+   it 'should find a winning horizontal up row' do
+    game = ConnectFourGame.new
+    
+    game.game_board[1] << Slot.new('human')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[2] << Slot.new('human')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[3] << Slot.new('human')
+    game.game_board[3] << Slot.new('computer')
+    game.game_board[3] << Slot.new('human')
+    game.game_board[4] << Slot.new('human')
+    game.game_board[4] << Slot.new('human')
+    game.game_board[4] << Slot.new('human')
+    game.game_board[4] << Slot.new('human')
+
+    expect(game.did_user_win? 'computer').to be false
+    expect(game.did_user_win? 'human').to be true
+    
+   end
+
+      it 'should find a winning horizontal down row' do
+    game = ConnectFourGame.new
+    
+    game.game_board[1] << Slot.new('human')
+    game.game_board[1] << Slot.new('human')
+    game.game_board[1] << Slot.new('computer')
+    game.game_board[1] << Slot.new('human')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[2] << Slot.new('human')
+    game.game_board[2] << Slot.new('human')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[3] << Slot.new('human')
+    game.game_board[3] << Slot.new('human')
+    game.game_board[3] << Slot.new('human')
+    game.game_board[4] << Slot.new('human')
+    game.game_board[4] << Slot.new('human')
+    game.game_board[4] << Slot.new('computer')
+    game.game_board[4] << Slot.new('human')
+
+    expect(game.did_user_win? 'computer').to be false
+    expect(game.did_user_win? 'human').to be true
     
   end
 end
