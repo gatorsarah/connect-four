@@ -18,7 +18,6 @@ describe ConnectFourGame do
 
   it 'should find a winning horizontal row' do
     game = ConnectFourGame.new
-    puts game.inspect
     
     game.game_board[1] << Slot.new('human')
     game.game_board[1] << Slot.new('computer')
@@ -29,9 +28,8 @@ describe ConnectFourGame do
     game.game_board[4] << Slot.new('human')
     game.game_board[4] << Slot.new('computer')
 
-    game.did_user_win?
+    expect(game.did_user_win? 'computer').to be true
+    expect(game.did_user_win? 'human').to be false
     
-    puts game.inspect
   end
-  
 end

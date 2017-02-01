@@ -16,8 +16,8 @@ class ConnectFourGame
   def make_computers_move
   end
 
-  def did_user_win?
-    is_there_a_connect_four? 'computer'
+  def did_user_win?(owner)
+    check_board_for_streaks(owner) >= 4
   end
 
   private
@@ -29,7 +29,7 @@ class ConnectFourGame
  
     if is_row_valid?(column, row) && is_column_valid?(column) 
 
-      if @game_board[column][row].user = owner
+      if @game_board[column][row].user == owner
 
         next_row = row if direction == 'horizontal'
         next_row = row + 1 if ['vertical', 'diagonal up'].include? direction
@@ -58,11 +58,11 @@ class ConnectFourGame
     @game_board[column].count >= ENV['MAX_ROWS'].to_i
   end
 
-  def is_there_a_connect_four?(owner)
+  def check_board_for_streaks(owner)
     match_count = 0
     @game_board.each do |column|
       column.each do |row|
-        if owner = row.user
+        if owner == row.user
           current_row = column.index(row)
           current_column = @game_board.index(column)
           vertical_count = streak_count(current_column, current_row + 1, "vertical", owner)
