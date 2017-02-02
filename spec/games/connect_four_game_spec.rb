@@ -69,27 +69,22 @@ describe ConnectFourGame do
     
    end
 
-      it 'should find a winning horizontal down row' do
+
+   it 'should record possible moves' do
     game = ConnectFourGame.new
     
     game.game_board[1] << Slot.new('human')
     game.game_board[1] << Slot.new('human')
-    game.game_board[1] << Slot.new('computer')
-    game.game_board[1] << Slot.new('human')
     game.game_board[2] << Slot.new('computer')
     game.game_board[2] << Slot.new('human')
-    game.game_board[2] << Slot.new('human')
-    game.game_board[2] << Slot.new('computer')
     game.game_board[3] << Slot.new('human')
     game.game_board[3] << Slot.new('human')
-    game.game_board[3] << Slot.new('human')
-    game.game_board[4] << Slot.new('human')
-    game.game_board[4] << Slot.new('human')
-    game.game_board[4] << Slot.new('computer')
     game.game_board[4] << Slot.new('human')
 
-    expect(game.did_user_win? 'computer').to be false
-    expect(game.did_user_win? 'human').to be true
+    game.make_computers_move
+#    expect(game.did_user_win? 'computer').to be false
+#    expect(game.did_user_win? 'human').to be true
     
-  end
+   end
+      
 end
