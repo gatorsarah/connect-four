@@ -37,71 +37,6 @@ class ConnectFourGame
 
   private
 
-  def streak_count(column, row, direction, owner)
-     if is_row_valid?(column, row) && is_column_valid?(column) 
-      if @game_board[column][row].user == owner
-
-        next_row = row if direction == 'horizontal'
-        next_row = row + 1 if ['vertical', 'diagonal up'].include? direction
-        next_row = row -1 if direction == 'diagonal down'
-
-        next_column = column if direction == 'vertical'
-        next_column = column + 1 if ['horizontal', 'diagonal up'].include? direction
-        next_column = column - 1 if direction == 'diagonal down' 
-        
-        current_count = streak_count(next_column, next_row, direction, owner)
-        current_count = 1 if current_count.nil?
-        current_count += 1
-      end
-    end
-    current_count ||= 1
-  end
-
-  def made_move?(move)
-    back_of_streak_column = find_column_at_back_of_streak move
-      
-    unless back_of_streak_column == "none"
-      take_slot(back_of_streak_column, 'computer')
-      return true 
-    end
-
-    front_of_streak_column = find_column_at_front_of_streak move
-    unless front_of_streak_column == "none"
-      take_slot(front_of_streak_column, 'computer')
-      return true
-    end
-    false
-  end
-  
-  def take_slot(column, owner)
-     @game_board[column] << Slot.new(owner)
-  end
-
-  def is_column_full?(column)
-    return false if @game_board[column].nil?
-    @game_board[column].count >= ENV['MAX_ROWS'].to_i
-  end
-
-  def check_board_for_streaks(owner)
-    match_count = 0
-    @game_board.each do |column|
-      column.each do |row|
-        if owner == row.user
-          current_row = column.index(row)
-          current_column = @game_board.index(column)
-          
-          vertical_count = streak_count(current_column, current_row + 1, "vertical", owner)
-          horizontal_count = streak_count(current_column + 1, current_row, "horizontal", owner)
-          up_count = streak_count(current_column + 1, current_row + 1, "diagonal up", owner)
-          down_count = streak_count(current_column - 1, current_row - 1, "diagonal down", owner)
-          match_count = [match_count, vertical_count, horizontal_count, up_count, down_count].max
-         end
-      end
-    end
-
-    match_count
-  end
-
   def find_possible_computer_moves(owner)
     possible_moves = Array.new
     @game_board.each do |column|
@@ -127,19 +62,9 @@ class ConnectFourGame
     possible_moves
   end
 
-  def log_possible_moves(column, row, count, direction)
-    {
-      :count => count,
-      :direction => direction,
-      :coord => [column, row]
-    }
-  end
-
   def find_column_at_back_of_streak(move)
     column = "none"
 
-    puts move.inspect
-    
     column_to_check = move[:coord][0] if move[:direction] == 'vertical'
     column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal_up'].include? move[:direction]
     column_to_check = move[:coord][0] - move[:count] if move[:direction] == 'diagonal down'
@@ -152,7 +77,6 @@ class ConnectFourGame
 
   def find_column_at_front_of_streak(move)
     column = "none"
-    puts move.inspect
 
     column_to_check = move[:coord][0] if move[:direction] == 'vertical'
     column_to_check = move[:coord][0] - 1 if ['horizontal', 'diagonal_up'].include? move[:direction]
@@ -163,7 +87,79 @@ class ConnectFourGame
     end
     column
   end
+
+  def check_board_for_streaks(owner)
+    match_count = 0
+    @game_board.each do |column|
+      column.each do |row|
+        if owner == row.user
+          current_row = column.index(row)
+          current_column = @game_board.index(column)
+          
+          vertical_count = streak_count(current_column, current_row + 1, "vertical", owner)
+          horizontal_count = streak_count(current_column + 1, current_row, "horizontal", owner)
+          up_count = streak_count(current_column + 1, current_row + 1, "diagonal up", owner)
+          down_count = streak_count(current_column - 1, current_row - 1, "diagonal down", owner)
+          match_count = [match_count, vertical_count, horizontal_count, up_count, down_count].max
+         end
+      end
+    end
+
+    match_count
+  end
+
+  def streak_count(column, row, direction, owner)
+     if is_row_valid?(column, row) && is_column_valid?(column) 
+      if @game_board[column][row].user == owner
+
+        next_row = row if direction == 'horizontal'
+        next_row = row + 1 if ['vertical', 'diagonal up'].include? direction
+        next_row = row -1 if direction == 'diagonal down'
+
+        next_column = column if direction == 'vertical'
+        next_column = column + 1 if ['horizontal', 'diagonal up'].include? direction
+        next_column = column - 1 if direction == 'diagonal down' 
+        
+        current_count = streak_count(next_column, next_row, direction, owner)
+        current_count = 1 if current_count.nil?
+        current_count += 1
+      end
+    end
+    current_count ||= 1
+  end
   
+  def made_move?(move)
+    back_of_streak_column = find_column_at_back_of_streak move
+      
+    unless back_of_streak_column == "none"
+      take_slot(back_of_streak_column, 'computer')
+      return true 
+    end
+
+    front_of_streak_column = find_column_at_front_of_streak move
+    unless front_of_streak_column == "none"
+      take_slot(front_of_streak_column, 'computer')
+      return true
+    end
+    false
+  end
+  
+  def take_slot(column, owner)
+     @game_board[column] << Slot.new(owner)
+  end
+
+  def is_column_full?(column)
+    return false if @game_board[column].nil?
+    @game_board[column].count >= ENV['MAX_ROWS'].to_i
+  end
+
+  def log_possible_moves(column, row, count, direction)
+    {
+      :count => count,
+      :direction => direction,
+      :coord => [column, row]
+    }
+  end  
 
   def is_row_valid?(column, row)
     row >= 0 && row < ENV['MAX_ROWS'].to_i && row < @game_board[column].count

@@ -101,11 +101,9 @@ describe ConnectFourGame do
     game.game_board[3] << Slot.new('computer')
     game.game_board[4] << Slot.new('human')
 
-    puts game.game_board.inspect
     expect(game.game_board[4].count).to be 1
     game.make_computers_move
 
-    puts game.game_board.inspect
     expect(game.game_board[4].count).to be 2
     expect(game.did_user_win? 'computer').to be true
     expect(game.did_user_win? 'human').to be false
@@ -114,12 +112,8 @@ describe ConnectFourGame do
 
    it 'should make a random move' do
     game = ConnectFourGame.new
-    
-    puts game.game_board.inspect
-
     game.make_computers_move
 
-    puts game.game_board.inspect
     expect(game.did_user_win? 'computer').to be false
     expect(game.did_user_win? 'human').to be false
     
