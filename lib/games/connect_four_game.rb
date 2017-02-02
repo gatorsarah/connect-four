@@ -10,11 +10,25 @@ class ConnectFourGame
   def record_users_move(column)
     raise ColumnFull.new if is_column_full?(column)
 
-    take_slot(column, "human")
+    take_slot(column, 'human')
   end
 
   def make_computers_move
-    find_possible_computer_moves
+    #check to see if we need to block first
+    moves_needed_for_blocking = find_possible_computer_moves('human')
+
+    moves_needed_for_blocking.each do |move|
+      return if made_move? move
+    end
+
+    moves_for_making_a_streak = find_possible_computer_moves 'computer'
+    moves_for_making_a_streak.each do |move|
+      return if made_move? move
+    end
+
+    # No suggested moves - go random!
+    random = Random.new
+    take_slot(random.rand(0..6), 'computer')
   end
 
   def did_user_win?(owner)
@@ -22,9 +36,6 @@ class ConnectFourGame
   end
 
   private
-
-  def should_block?
-  end
 
   def streak_count(column, row, direction, owner)
      if is_row_valid?(column, row) && is_column_valid?(column) 
@@ -46,7 +57,21 @@ class ConnectFourGame
     current_count ||= 1
   end
 
-  
+  def made_move?(move)
+    back_of_streak_column = find_column_at_back_of_streak move
+      
+    unless back_of_streak_column == "none"
+      take_slot(back_of_streak_column, 'computer')
+      return true 
+    end
+
+    front_of_streak_column = find_column_at_front_of_streak move
+    unless front_of_streak_column == "none"
+      take_slot(front_of_streak_column, 'computer')
+      return true
+    end
+    false
+  end
   
   def take_slot(column, owner)
      @game_board[column] << Slot.new(owner)
@@ -77,60 +102,29 @@ class ConnectFourGame
     match_count
   end
 
-  def find_possible_computer_moves
-
+  def find_possible_computer_moves(owner)
     possible_moves = Array.new
     @game_board.each do |column|
       column.each do |row|
-        if row.user == 'human'
+        if row.user == owner
           current_row = column.index(row)
           current_column = @game_board.index(column)
           
-          vertical_count = streak_count(current_column,
-                                        current_row + 1,
-                                        'vertical',
-                                        'human')
-
+          vertical_count = streak_count(current_column, current_row + 1, 'vertical', owner)
           possible_moves << log_possible_moves(current_column, current_row, vertical_count, 'vertical') if vertical_count > 2
           
-          horizontal_count = streak_count(current_column + 1,
-                                          current_row,
-                                          'horizontal',
-                                          'human')
-          puts horizontal_count
-          
+          horizontal_count = streak_count(current_column + 1, current_row, 'horizontal', owner)
           possible_moves << log_possible_moves(current_column, current_row, horizontal_count, 'horizontal') if horizontal_count > 2
-          
-          up_count = streak_count(current_column + 1,
-                                  current_row + 1,
-                                  'diagonal up',
-                                  'human')
-
+       
+          up_count = streak_count(current_column + 1, current_row + 1, 'diagonal up', owner)
           possible_moves << log_possible_moves(current_column, current_row, up_count, 'diagonal up') if up_count > 2
-          
-          
-          down_count = streak_count(current_column - 1,
-                                    current_row - 1,
-                                    'diagonal down',
-                                    'human')
-
+           
+          down_count = streak_count(current_column - 1, current_row - 1, 'diagonal down', owner)
           possible_moves << log_possible_moves(current_column, current_row, down_count, 'diagonal down') if down_count > 2
-
-          puts possible_moves
         end
-    #check to see if current count of the human is 3
-    #for each one store column of possible blocks
-    #check to see if the slot is available to block
-    #store the column row coordinate in an array?
-
-    #user similar code to check for streaks but instead return coords
-    #create am arrray with coordinates and then add to the beginning if a higher streak and at the end if lower
-    #find the max streak
-    #when found the max streak, store column that started it
-    #check to see if the slot is availabe to block
-    #take opportunity
       end
     end
+    possible_moves
   end
 
   def log_possible_moves(column, row, count, direction)
@@ -140,10 +134,43 @@ class ConnectFourGame
       :coord => [column, row]
     }
   end
+
+  def find_column_at_back_of_streak(move)
+    column = "none"
+
+    puts move.inspect
+    
+    column_to_check = move[:coord][0] if move[:direction] == 'vertical'
+    column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal_up'].include? move[:direction]
+    column_to_check = move[:coord][0] - move[:count] if move[:direction] == 'diagonal down'
+
+    if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check)
+      column = column_to_check
+    end
+    column
+  end
+
+  def find_column_at_front_of_streak(move)
+    column = "none"
+    puts move.inspect
+
+    column_to_check = move[:coord][0] if move[:direction] == 'vertical'
+    column_to_check = move[:coord][0] - 1 if ['horizontal', 'diagonal_up'].include? move[:direction]
+    column_to_check = move[:coord][0] + 1 if move[:direction] == 'diagonal down'
+
+    if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check)
+      column = column_to_check
+    end
+    column
+  end
   
 
   def is_row_valid?(column, row)
     row >= 0 && row < ENV['MAX_ROWS'].to_i && row < @game_board[column].count
+  end
+
+  def is_new_row_valid?(column)
+    @game_board[column].count + 1 < ENV['MAX_ROWS'].to_i
   end
 
   def is_column_valid?(column)

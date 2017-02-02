@@ -70,7 +70,7 @@ describe ConnectFourGame do
    end
 
 
-   it 'should record possible moves' do
+   it 'should take slots when needing to block' do
     game = ConnectFourGame.new
     
     game.game_board[1] << Slot.new('human')
@@ -81,10 +81,48 @@ describe ConnectFourGame do
     game.game_board[3] << Slot.new('human')
     game.game_board[4] << Slot.new('human')
 
+    expect(game.game_board[4].count).to be 1
     game.make_computers_move
-#    expect(game.did_user_win? 'computer').to be false
-#    expect(game.did_user_win? 'human').to be true
+ 
+    expect(game.game_board[4].count).to be 2
+    expect(game.did_user_win? 'computer').to be false
+    expect(game.did_user_win? 'human').to be false
     
    end
-      
+
+   it 'should take slots when needing to win' do
+    game = ConnectFourGame.new
+    
+    game.game_board[1] << Slot.new('human')
+    game.game_board[1] << Slot.new('computer')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[2] << Slot.new('computer')
+    game.game_board[3] << Slot.new('human')
+    game.game_board[3] << Slot.new('computer')
+    game.game_board[4] << Slot.new('human')
+
+    puts game.game_board.inspect
+    expect(game.game_board[4].count).to be 1
+    game.make_computers_move
+
+    puts game.game_board.inspect
+    expect(game.game_board[4].count).to be 2
+    expect(game.did_user_win? 'computer').to be true
+    expect(game.did_user_win? 'human').to be false
+    
+   end
+
+   it 'should make a random move' do
+    game = ConnectFourGame.new
+    
+    puts game.game_board.inspect
+
+    game.make_computers_move
+
+    puts game.game_board.inspect
+    expect(game.did_user_win? 'computer').to be false
+    expect(game.did_user_win? 'human').to be false
+    
+   end
+   
 end
