@@ -39,6 +39,10 @@ class ConnectFourGame
 
   def find_possible_computer_moves(owner)
     possible_moves = Array.new
+
+    streak_count_check = 1 if owner == 'computer'
+    streak_count_check = 2 if owner == 'human'
+    
     @game_board.each do |column|
       column.each do |row|
         if row.user == owner
@@ -46,16 +50,16 @@ class ConnectFourGame
           current_column = @game_board.index(column)
           
           vertical_count = streak_count(current_column, current_row + 1, 'vertical', owner)
-          possible_moves << log_possible_moves(current_column, current_row, vertical_count, 'vertical') if vertical_count > 2
+          possible_moves << log_possible_moves(current_column, current_row, vertical_count, 'vertical') if vertical_count > streak_count_check
           
           horizontal_count = streak_count(current_column + 1, current_row, 'horizontal', owner)
-          possible_moves << log_possible_moves(current_column, current_row, horizontal_count, 'horizontal') if horizontal_count > 2
+          possible_moves << log_possible_moves(current_column, current_row, horizontal_count, 'horizontal') if horizontal_count > streak_count_check
        
           up_count = streak_count(current_column + 1, current_row + 1, 'diagonal up', owner)
-          possible_moves << log_possible_moves(current_column, current_row, up_count, 'diagonal up') if up_count > 2
+          possible_moves << log_possible_moves(current_column, current_row, up_count, 'diagonal up') if up_count > streak_count_check
            
           down_count = streak_count(current_column - 1, current_row - 1, 'diagonal down', owner)
-          possible_moves << log_possible_moves(current_column, current_row, down_count, 'diagonal down') if down_count > 2
+          possible_moves << log_possible_moves(current_column, current_row, down_count, 'diagonal down') if down_count > streak_count_check
         end
       end
     end
@@ -69,8 +73,14 @@ class ConnectFourGame
     column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal_up'].include? move[:direction]
     column_to_check = move[:coord][0] - move[:count] if move[:direction] == 'diagonal down'
 
-    if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check)
-      column = column_to_check
+    if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check, move[:coord][1])
+      unless move[:direction] == 'vertical'
+        if is_new_row_smart?(column_to_check, move[:coord][1])
+          column = column_to_check
+        end
+      else
+        column = column_to_check
+      end
     end
     column
   end
@@ -82,7 +92,7 @@ class ConnectFourGame
     column_to_check = move[:coord][0] - 1 if ['horizontal', 'diagonal_up'].include? move[:direction]
     column_to_check = move[:coord][0] + 1 if move[:direction] == 'diagonal down'
 
-    if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check)
+    if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check, move[:coord][1])
       column = column_to_check
     end
     column
@@ -162,11 +172,15 @@ class ConnectFourGame
   end  
 
   def is_row_valid?(column, row)
-    row >= 0 && row < ENV['MAX_ROWS'].to_i && row < @game_board[column].count
+    row >= 0 && row < ENV['MAX_ROWS'].to_i && row < @game_board[column].count #&& row + 1 >= @game_board[column].count
   end
 
-  def is_new_row_valid?(column)
+  def is_new_row_valid?(column, row)
     @game_board[column].count + 1 < ENV['MAX_ROWS'].to_i
+  end
+
+  def is_new_row_smart?(column, row)
+    row + 1 > @game_board[column].count
   end
 
   def is_column_valid?(column)
