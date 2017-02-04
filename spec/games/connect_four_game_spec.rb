@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe ConnectFourGame do
+describe Games::ConnectFourGame do
 
   it 'should initialize a new game board' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
   end
 
   it 'should take a new slot' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
     game.record_users_move(3)
 
     expect(game.game_board[3].count).to eq 1
@@ -15,7 +15,7 @@ describe ConnectFourGame do
   end
 
   it 'should find a winning horizontal row' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
     
     game.game_board[1] << Slot.new('human')
     game.game_board[1] << Slot.new('computer')
@@ -32,7 +32,7 @@ describe ConnectFourGame do
   end
 
    it 'should find a winning vertical row' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
     
     game.game_board[1] << Slot.new('human')
     game.game_board[2] << Slot.new('computer')
@@ -49,7 +49,7 @@ describe ConnectFourGame do
    end
 
    it 'should find a winning horizontal up row' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
     
     game.game_board[1] << Slot.new('human')
     game.game_board[2] << Slot.new('computer')
@@ -71,7 +71,7 @@ describe ConnectFourGame do
 
 
    it 'should take slots when needing to block' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
     
     game.game_board[1] << Slot.new('human')
     game.game_board[1] << Slot.new('human')
@@ -91,7 +91,7 @@ describe ConnectFourGame do
    end
 
    it 'should take slots when needing to win' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
     
     game.game_board[1] << Slot.new('human')
     game.game_board[1] << Slot.new('computer')
@@ -111,7 +111,7 @@ describe ConnectFourGame do
    end
 
    it 'should make a random move' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
     game.make_computers_move
 
     expect(game.did_user_win? 'computer').to eq false
@@ -120,7 +120,7 @@ describe ConnectFourGame do
    end
 
    it 'should take slots at beginning of streak when needing to win' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
 
     game.game_board[0] << Slot.new('human')
     game.game_board[1] << Slot.new('human')
@@ -142,7 +142,7 @@ describe ConnectFourGame do
    end
 
    it 'should take slots when needing to block vertically' do
-    game = ConnectFourGame.new
+    game = Games::ConnectFourGame.new
     
     game.game_board[1] << Slot.new('human')
     game.game_board[1] << Slot.new('human')
