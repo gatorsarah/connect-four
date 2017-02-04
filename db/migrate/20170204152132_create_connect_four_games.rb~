@@ -1,0 +1,6 @@
+class CreateConnectFourGames < ActiveRecord::Migration
+  def change
+    create_table :connect_four_games do |t|
+    end
+  end
+end
