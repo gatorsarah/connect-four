@@ -26,4 +26,8 @@ test:
 
 production:
   <<: *default
-  host: postgres://zbabkxeeolacki:8a1ec70c3152f8782097c850210449fb7c04ee07f7aa7b56d16e0624a7d953ca@ec2-50-17-220-223.compute-1.amazonaws.com:5432/deashtp33fvfpg
+  host: ec2-54-235-90-107.compute-1.amazonaws.com
+  port: 5423
+  database: d3ooadek8m9gca
+  username: pmodkbmdrluaxh
+  password: a156c8eaeb2ac5bcfd72bd9ee68d2aa869ea5d0ff84be84d342d17ce18c80859
