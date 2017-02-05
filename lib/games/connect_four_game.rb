@@ -41,12 +41,12 @@ class ConnectFourGame
     def find_possible_computer_moves(owner)
       possible_moves = Array.new
 
-      streak_count_check = 1 if owner == 'computer'
+      streak_count_check = 0 if owner == 'computer'
       streak_count_check = 2 if owner == 'human'
       
       @game_board.each do |column|
         column.each do |row|
-          if row.user == owner
+          if get_user(row)  == owner
             current_row = column.index(row)
             current_column = @game_board.index(column)
             
@@ -71,7 +71,7 @@ class ConnectFourGame
       column = "none"
 
       column_to_check = move[:coord][0] if move[:direction] == 'vertical'
-      column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal_up'].include? move[:direction]
+      column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal up'].include? move[:direction]
       column_to_check = move[:coord][0] - move[:count] if move[:direction] == 'diagonal down'
 
       if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check, move[:coord][1])
@@ -90,7 +90,7 @@ class ConnectFourGame
       column = "none"
 
       column_to_check = move[:coord][0] if move[:direction] == 'vertical'
-      column_to_check = move[:coord][0] - 1 if ['horizontal', 'diagonal_up'].include? move[:direction]
+      column_to_check = move[:coord][0] - 1 if ['horizontal', 'diagonal up'].include? move[:direction]
       column_to_check = move[:coord][0] + 1 if move[:direction] == 'diagonal down'
 
       if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check, move[:coord][1])
@@ -103,7 +103,7 @@ class ConnectFourGame
       match_count = 0
       @game_board.each do |column|
         column.each do |row|
-          if owner == row.user
+          if owner == get_user(row)
             current_row = column.index(row)
             current_column = @game_board.index(column)
             
@@ -120,8 +120,8 @@ class ConnectFourGame
     end
 
     def streak_count(column, row, direction, owner)
-      if is_row_valid?(column, row) && is_column_valid?(column) 
-        if @game_board[column][row].user == owner
+      if is_column_valid?(column) && is_row_valid?(column, row)
+        if @game_board[column][row]["user"] == owner
 
           next_row = row if direction == 'horizontal'
           next_row = row + 1 if ['vertical', 'diagonal up'].include? direction
@@ -156,7 +156,7 @@ class ConnectFourGame
     end
     
     def take_slot(column, owner)
-      @game_board[column] << Slot.new(owner)
+      @game_board[column] << {"user" => owner}
     end
 
     def is_column_full?(column)
@@ -186,6 +186,15 @@ class ConnectFourGame
 
     def is_column_valid?(column)
       column >= 0 && column < ENV['MAX_COLUMNS'].to_i
+    end
+
+    def get_user(row)
+      if row.is_a? Hash
+        user = row["user"]
+      else
+        user = row.user
+      end
+      user
     end
   end
 end

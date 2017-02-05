@@ -1,0 +1,26 @@
+<section>
+  <%= render partial: 'menu' %>  
+</section>
+
+<div id="connect_four_banner" >
+  <h2 id="connect_four_title">Connect Four Game</h2>
+</div>
+
+<form id="user_move" action="<%= users_move_path %>" method="post" >
+
+  <div id="user_column_choice">
+    <% @game.game_board.each_with_index do |column, index| %>
+
+    <div id="user_slot_<%= index %>">
+      <div class="user_slot">
+	<%= link_to image_tag("yellow_checker.png"), users_move_path(index) %>
+	</div>
+    </div>
+    <% end %>
+  </div>
+
+</form>
+
+<section>
+  <%= render partial: 'gameboard' %>
+</section>

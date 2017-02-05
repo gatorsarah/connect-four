@@ -13,3 +13,230 @@
  *= require_tree .
  *= require_self
  */
+
+body
+{
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px !important;
+  margin: 0px;
+  background-image: url("connect_four_background.jpeg");
+  background-size: cover;
+		       
+  
+}
+
+div#navigation_header
+{
+    background-color: #000000;
+    height: 30px;
+    padding-top:10px;
+    
+}
+
+.menu_link
+{
+    color: #ffffff;
+    padding-left: 10px;
+    margin-top: 30px;
+    text-decoration: none;
+}
+
+div#connect_four_banner
+{
+    position: relative;
+    height: 30px;
+}
+div#connect_four_banner h2
+{
+    margin: 0;
+    left: 40%;
+    position: absolute;
+	      
+}
+
+div#first_move_section
+{
+    height: 40px;
+    margin-bottom:10px;
+    
+}
+
+div#first_move_section a
+{
+    color: #000000;
+    text-decoration: none;
+    margin: 30px;
+}
+
+p#notice
+{
+    color: red;
+}
+
+#connect_four_squares
+{
+    padding: 10em;
+}
+
+div.slot
+{
+    width: 75px;
+    height: 75px;
+    border-color: #000000;
+    border-width: thin;
+    border-style: solid;
+}
+
+div.user_slot
+{
+
+    width: 75px;
+    height: 75px;
+    border-color: #000000;
+}
+
+div.user_colum_choice img
+{
+    width: 75px;
+    height: 75px;
+}
+
+div.slot img
+{
+    width: 75px;
+    height:75px;
+}
+
+div.user_slot img
+{
+    width: 75px;
+    
+    height: 75px;
+}
+
+div#column_0
+{
+    padding-left: 10em;
+    display: inline-flex;
+    flex-direction: column;
+    width: 75px;
+}
+
+div#column_1
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 75px;
+}
+
+div#column_2
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 75px;
+}
+
+div#column_3
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 75px;
+}
+
+div#column_4
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 75px;
+}
+
+div#column_5
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 75px;
+}
+
+div#column_6
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 75px;
+}
+
+div#user_slot_0
+{
+    padding-left: 10em;
+    display: inline-flex;
+    flex-direction: row;
+    width: 75px;
+    visible: false;
+}
+
+div#user_slot_1
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 75px;
+    visible: false;
+}
+
+div#user_slot_2
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 75px;
+    visible: false;
+}
+
+div#user_slot_3
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 75px;
+    visible: false;
+}
+
+div#user_slot_4
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 75px;
+    visible: false
+}
+
+div#user_slot_5
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 75px;
+    visible: false;
+}
+
+div#user_slot_6
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 75px;
+    visible: false;
+}
+
+div#user_slot_0:hover
+{
+  visible:true
+}
+
+div#user_slot_1:hover
+{
+  visible:true
+}
+
+div#user_slot_2:hover
+{
+  visible:true
+}
+
+div#user_slot_3:hover
+{
+  visible:true
+}
