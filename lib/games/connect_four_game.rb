@@ -59,7 +59,7 @@ class ConnectFourGame
             up_count = streak_count(current_column + 1, current_row + 1, 'diagonal up', owner)
             possible_moves << log_possible_moves(current_column, current_row, up_count, 'diagonal up') if up_count > streak_count_check
             
-            down_count = streak_count(current_column - 1, current_row - 1, 'diagonal down', owner)
+            down_count = streak_count(current_column + 1, current_row - 1, 'diagonal down', owner)
             possible_moves << log_possible_moves(current_column, current_row, down_count, 'diagonal down') if down_count > streak_count_check
           end
         end
@@ -71,18 +71,11 @@ class ConnectFourGame
       column = "none"
 
       column_to_check = move[:coord][0] if move[:direction] == 'vertical'
-      column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal up'].include? move[:direction]
-      column_to_check = move[:coord][0] - move[:count] if move[:direction] == 'diagonal down'
+      column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal up', 'diagonal down'].include? move[:direction]
 
       if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check, move[:coord][1])
-        unless move[:direction] == 'vertical'
-          if is_new_row_smart?(column_to_check, move[:coord][1])
-            column = column_to_check
-          end
-        else
-          column = column_to_check
-        end
-      end
+         column = column_to_check
+       end
       column
     end
 
@@ -103,7 +96,7 @@ class ConnectFourGame
       match_count = 0
       @game_board.each do |column|
         column.each do |row|
-          puts row
+
           if owner == row["user"]
             current_row = column.index(row)
             current_column = @game_board.index(column)
@@ -111,7 +104,8 @@ class ConnectFourGame
             vertical_count = streak_count(current_column, current_row + 1, "vertical", owner)
             horizontal_count = streak_count(current_column + 1, current_row, "horizontal", owner)
             up_count = streak_count(current_column + 1, current_row + 1, "diagonal up", owner)
-            down_count = streak_count(current_column - 1, current_row - 1, "diagonal down", owner)
+            down_count = streak_count(current_column + 1, current_row - 1, "diagonal down", owner)
+
             match_count = [match_count, vertical_count, horizontal_count, up_count, down_count].max
           end
         end
@@ -121,23 +115,23 @@ class ConnectFourGame
     end
 
     def streak_count(column, row, direction, owner)
+      current_count ||= 1
       if is_column_valid?(column) && is_row_valid?(column, row)
         if @game_board[column][row]["user"] == owner
 
           next_row = row if direction == 'horizontal'
           next_row = row + 1 if ['vertical', 'diagonal up'].include? direction
-          next_row = row -1 if direction == 'diagonal down'
+          next_row = row - 1 if direction == 'diagonal down'
 
           next_column = column if direction == 'vertical'
-          next_column = column + 1 if ['horizontal', 'diagonal up'].include? direction
-          next_column = column - 1 if direction == 'diagonal down' 
-          
+          next_column = column + 1 if ['horizontal', 'diagonal up', 'diagonal down'].include? direction
+             
           current_count = streak_count(next_column, next_row, direction, owner)
-          current_count = 1 if current_count.nil?
           current_count += 1
         end
       end
-      current_count ||= 1
+ 
+      current_count
     end
     
     def made_move?(move)

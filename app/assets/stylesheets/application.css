@@ -46,6 +46,7 @@ div#connect_four_banner
     position: relative;
     height: 30px;
 }
+
 div#connect_four_banner h2
 {
     margin: 0;
@@ -61,11 +62,18 @@ div#first_move_section
     
 }
 
-div#first_move_section a
+div#first_move_section a,
+div.file_link a
 {
     color: #000000;
     text-decoration: none;
     margin: 30px;
+}
+
+div.file_link a:hover,
+div#first_move_section a:hover
+{
+    font-weight: bold;
 }
 
 p#notice
@@ -239,4 +247,9 @@ div#user_slot_2:hover
 div#user_slot_3:hover
 {
   visible:true
+}
+
+div#connect_four_list
+{
+    padding-left: 30px;
 }

@@ -1,0 +1,17 @@
+<section>
+  <%= render partial: 'menu' %>  
+</section>
+
+<div id="connect_four_banner" >
+  <h2 id="connect_four_title">Saved Games</h2>
+</div>
+
+<div id="connect_four_list">
+  <% @games_to_load.each do |game| %>
+  <div class="file_link">
+    <%= link_to "#{game.save_time}", load_game_path(game.id) %>
+  </div>
+  <% end %>
+</div>
+
+

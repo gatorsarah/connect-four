@@ -42,9 +42,39 @@ class ConnectFourController < ApplicationController
   end
 
   def list_games
+    @games_to_load = ConnectFourGame.all
+    puts @games_to_load
   end
 
   def load_game
+    @game = Games::ConnectFourGame.new
+    @game_loaded = ConnectFourGame.find params["game"]
+
+    @game_loaded.column0.each { |item| @game.game_board[0] << {"user" => item}}
+    @game_loaded.column1.each { |item| @game.game_board[1] << {"user" => item}}
+    @game_loaded.column2.each { |item| @game.game_board[2] << {"user" => item}}
+    @game_loaded.column3.each { |item| @game.game_board[3] << {"user" => item}}
+    @game_loaded.column4.each { |item| @game.game_board[4] << {"user" => item}}
+    @game_loaded.column5.each { |item| @game.game_board[5] << {"user" => item}}
+    @game_loaded.column6.each { |item| @game.game_board[6] << {"user" => item}}
+
+    puts @game.game_board
+    session[:game_board] = @game.game_board
+
+    user_count = 0
+    computer_count = 0
+    @game.game_board.each do |column|
+      column.each do |row|
+        user_count += 1 if row["user"] == 'human'
+        computer_count += 1 if row["user"] == 'computer'
+      end
+    end
+
+    if user_count > computer_count
+      redirect_to make_computers_move
+    else
+      redirect_to users_move_path "choose"
+    end
   end
 
   def save_game
