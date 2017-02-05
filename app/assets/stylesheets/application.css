@@ -72,7 +72,27 @@ div.slot
     border-style: solid;
 }
 
+div.user_slot
+{
+
+    width: 50px;
+    height: 50px;
+    border-color: #000000;
+}
+
+div.user_colum_choice img
+{
+    width: 50px;
+    height: 50px;
+}
+
 div.slot img
+{
+    width: 50px;
+    height: 50px;
+}
+
+div.user_slot img
 {
     width: 50px;
     height: 50px;
@@ -126,4 +146,81 @@ div#column_6
     display: inline-flex;
     flex-direction: column;
     width: 50px;
+}
+
+div#user_slot_0
+{
+    padding-left: 10em;
+    display: inline-flex;
+    flex-direction: row;
+    width: 50px;
+    visible: false;
+}
+
+div#user_slot_1
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 50px;
+    visible: false;
+}
+
+div#user_slot_2
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 50px;
+    visible: false;
+}
+
+div#user_slot_3
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 50px;
+    visible: false;
+}
+
+div#user_slot_4
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 50px;
+    visible: false
+}
+
+div#user_slot_5
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 50px;
+    visible: false;
+}
+
+div#user_slot_6
+{
+    display: inline-flex;
+    flex-direction: row;
+    width: 50px;
+    visible: false;
+}
+
+div#user_slot_0:hover
+{
+  visible:true
+}
+
+div#user_slot_1:hover
+{
+  visible:true
+}
+
+div#user_slot_2:hover
+{
+  visible:true
+}
+
+div#user_slot_3:hover
+{
+  visible:true
 }

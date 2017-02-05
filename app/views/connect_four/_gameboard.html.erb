@@ -3,13 +3,13 @@
   <% @game.game_board.each_with_index do |column, index| %>
 
   <div id= "column_<%= index %>" >
-    <% ENV['MAX_ROWS'].to_i.times do |row| %>
+    <% (ENV['MAX_ROWS'].to_i - 1).downto(0).each do |row| %>
        
     <div class="slot">
       <% if column[row].nil? %>
-       <% elsif column[row].user = 'human' %>
+       <% elsif column[row]["user"] == 'human' %>
        <%= image_tag "yellow_checker.png" %>
-       <% elsif column[row].user = 'computer' %>
+       <% elsif column[row]["user"] == 'computer' %>
        <%= image_tag "purple_checker.png" %>
        <% end %>
       </div>
