@@ -41,14 +41,24 @@ div#navigation_header
     text-decoration: none;
 }
 
-h2#title
+div#connect_four_banner
 {
-    padding-left: 13em;
+    position: relative;
+    height: 30px;
+}
+div#connect_four_banner h2
+{
+    margin: 0;
+    left: 40%;
+    position: absolute;
+	      
 }
 
 div#first_move_section
 {
-    height: 30px;
+    height: 40px;
+    margin-bottom:10px;
+    
 }
 
 div#first_move_section a
@@ -58,6 +68,11 @@ div#first_move_section a
     margin: 30px;
 }
 
+p#notice
+{
+    color: red;
+}
+
 #connect_four_squares
 {
     padding: 10em;
@@ -65,8 +80,8 @@ div#first_move_section a
 
 div.slot
 {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     border-color: #000000;
     border-width: thin;
     border-style: solid;
@@ -75,27 +90,28 @@ div.slot
 div.user_slot
 {
 
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     border-color: #000000;
 }
 
 div.user_colum_choice img
 {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
 }
 
 div.slot img
 {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height:75px;
 }
 
 div.user_slot img
 {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    
+    height: 75px;
 }
 
 div#column_0
@@ -103,49 +119,49 @@ div#column_0
     padding-left: 10em;
     display: inline-flex;
     flex-direction: column;
-    width: 50px;
+    width: 75px;
 }
 
 div#column_1
 {
     display: inline-flex;
     flex-direction: column;
-    width: 50px;
+    width: 75px;
 }
 
 div#column_2
 {
     display: inline-flex;
     flex-direction: column;
-    width: 50px;
+    width: 75px;
 }
 
 div#column_3
 {
     display: inline-flex;
     flex-direction: column;
-    width: 50px;
+    width: 75px;
 }
 
 div#column_4
 {
     display: inline-flex;
     flex-direction: column;
-    width: 50px;
+    width: 75px;
 }
 
 div#column_5
 {
     display: inline-flex;
     flex-direction: column;
-    width: 50px;
+    width: 75px;
 }
 
 div#column_6
 {
     display: inline-flex;
     flex-direction: column;
-    width: 50px;
+    width: 75px;
 }
 
 div#user_slot_0
@@ -153,7 +169,7 @@ div#user_slot_0
     padding-left: 10em;
     display: inline-flex;
     flex-direction: row;
-    width: 50px;
+    width: 75px;
     visible: false;
 }
 
@@ -161,7 +177,7 @@ div#user_slot_1
 {
     display: inline-flex;
     flex-direction: row;
-    width: 50px;
+    width: 75px;
     visible: false;
 }
 
@@ -169,7 +185,7 @@ div#user_slot_2
 {
     display: inline-flex;
     flex-direction: row;
-    width: 50px;
+    width: 75px;
     visible: false;
 }
 
@@ -177,7 +193,7 @@ div#user_slot_3
 {
     display: inline-flex;
     flex-direction: row;
-    width: 50px;
+    width: 75px;
     visible: false;
 }
 
@@ -185,7 +201,7 @@ div#user_slot_4
 {
     display: inline-flex;
     flex-direction: row;
-    width: 50px;
+    width: 75px;
     visible: false
 }
 
@@ -193,7 +209,7 @@ div#user_slot_5
 {
     display: inline-flex;
     flex-direction: row;
-    width: 50px;
+    width: 75px;
     visible: false;
 }
 
@@ -201,7 +217,7 @@ div#user_slot_6
 {
     display: inline-flex;
     flex-direction: row;
-    width: 50px;
+    width: 75px;
     visible: false;
 }
 

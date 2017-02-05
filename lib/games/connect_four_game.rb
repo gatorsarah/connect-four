@@ -41,7 +41,7 @@ class ConnectFourGame
     def find_possible_computer_moves(owner)
       possible_moves = Array.new
 
-      streak_count_check = 1 if owner == 'computer'
+      streak_count_check = 0 if owner == 'computer'
       streak_count_check = 2 if owner == 'human'
       
       @game_board.each do |column|
@@ -71,7 +71,7 @@ class ConnectFourGame
       column = "none"
 
       column_to_check = move[:coord][0] if move[:direction] == 'vertical'
-      column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal_up'].include? move[:direction]
+      column_to_check = move[:coord][0] + move[:count] if ['horizontal', 'diagonal up'].include? move[:direction]
       column_to_check = move[:coord][0] - move[:count] if move[:direction] == 'diagonal down'
 
       if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check, move[:coord][1])
@@ -90,7 +90,7 @@ class ConnectFourGame
       column = "none"
 
       column_to_check = move[:coord][0] if move[:direction] == 'vertical'
-      column_to_check = move[:coord][0] - 1 if ['horizontal', 'diagonal_up'].include? move[:direction]
+      column_to_check = move[:coord][0] - 1 if ['horizontal', 'diagonal up'].include? move[:direction]
       column_to_check = move[:coord][0] + 1 if move[:direction] == 'diagonal down'
 
       if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check, move[:coord][1])

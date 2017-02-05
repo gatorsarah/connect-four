@@ -7,8 +7,12 @@
 </div>
 
 <div id="first_move_section">
-  <%= link_to 'I want to go first', users_move_path('choose') %>
-  <%= link_to 'Computer goes first', make_computers_move_path %>
+  <div class="first_move_link">
+    <%= link_to 'I want to go first', users_move_path('choose') %>
+  </div>
+  <div class="first_move_link">
+    <%= link_to 'Computer goes first', make_computers_move_path %>
+  </div>
 </div>
 
 

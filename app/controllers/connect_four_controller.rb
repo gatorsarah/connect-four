@@ -11,19 +11,14 @@ class ConnectFourController < ApplicationController
     @game = Games::ConnectFourGame.new
 
     @game.game_board = session[:game_board]
-
-    puts @game.game_board
-    
     @game.make_computers_move
 
-    puts @game.game_board
-        
-    @game.did_user_win? 'computer'
-
-    session[:game_board] = @game.game_board
-
-    redirect_to users_move_path "choose"
-    #if so, then popup contrats message 
+    if @game.did_user_win? 'computer'
+      redirect_to new_game_path, :notice => "Computer won! Starting new game!"
+    else
+      session[:game_board] = @game.game_board
+      redirect_to users_move_path "choose"
+    end
   end
 
   def users_move
@@ -36,12 +31,11 @@ class ConnectFourController < ApplicationController
       session[:game_board] =  @game.game_board
       
       if @game.did_user_win? 'human'
-      #if so then popup contrats message
+        redirect_to new_game_path, :notice => "Congratulations!  Starting new game!"
       else
         session[:game_board] = @game.game_board
+        redirect_to make_computers_move_path
       end
-
-      redirect_to make_computers_move_path
     end
   end
 end
