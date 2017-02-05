@@ -1,0 +1,20 @@
+<div id="connect-four-squares">
+
+  <% @game.game_board.each_with_index do |column, index| %>
+
+  <div id= "column_<%= index %>" >
+    <% ENV['MAX_ROWS'].to_i.times do |row| %>
+       
+    <div class="slot">
+      <% if column[row].nil? %>
+       <% elsif column[row].user = 'human' %>
+       <%= image_tag "yellow_checker.png" %>
+       <% elsif column[row].user = 'computer' %>
+       <%= image_tag "purple_checker.png" %>
+       <% end %>
+      </div>
+       <% end %>
+  </div>
+  <% end %>
+  </div>
+</div>

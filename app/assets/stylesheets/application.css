@@ -13,3 +13,117 @@
  *= require_tree .
  *= require_self
  */
+
+body
+{
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px !important;
+  margin: 0px;
+  background-image: url("connect_four_background.jpeg");
+  background-size: cover;
+		       
+  
+}
+
+div#navigation_header
+{
+    background-color: #000000;
+    height: 30px;
+    padding-top:10px;
+    
+}
+
+.menu_link
+{
+    color: #ffffff;
+    padding-left: 10px;
+    margin-top: 30px;
+    text-decoration: none;
+}
+
+h2#title
+{
+    padding-left: 13em;
+}
+
+div#first_move_section
+{
+    height: 30px;
+}
+
+div#first_move_section a
+{
+    color: #000000;
+    text-decoration: none;
+    margin: 30px;
+}
+
+#connect_four_squares
+{
+    padding: 10em;
+}
+
+div.slot
+{
+    width: 50px;
+    height: 50px;
+    border-color: #000000;
+    border-width: thin;
+    border-style: solid;
+}
+
+div.slot img
+{
+    width: 50px;
+    height: 50px;
+}
+
+div#column_0
+{
+    padding-left: 10em;
+    display: inline-flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+div#column_1
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+div#column_2
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+div#column_3
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+div#column_4
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+div#column_5
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+div#column_6
+{
+    display: inline-flex;
+    flex-direction: column;
+    width: 50px;
+}
