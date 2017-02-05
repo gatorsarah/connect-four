@@ -24,6 +24,6 @@ development:
 test:
   <<: *default
 
-#production:
+production:
   <<: *default
   host: postgres://zbabkxeeolacki:8a1ec70c3152f8782097c850210449fb7c04ee07f7aa7b56d16e0624a7d953ca@ec2-50-17-220-223.compute-1.amazonaws.com:5432/deashtp33fvfpg

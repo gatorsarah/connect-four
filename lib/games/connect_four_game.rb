@@ -46,7 +46,7 @@ class ConnectFourGame
       
       @game_board.each do |column|
         column.each do |row|
-          if get_user(row)  == owner
+          if row["user"]  == owner
             current_row = column.index(row)
             current_column = @game_board.index(column)
             
@@ -103,7 +103,8 @@ class ConnectFourGame
       match_count = 0
       @game_board.each do |column|
         column.each do |row|
-          if owner == get_user(row)
+          puts row
+          if owner == row["user"]
             current_row = column.index(row)
             current_column = @game_board.index(column)
             
@@ -173,7 +174,7 @@ class ConnectFourGame
     end  
 
     def is_row_valid?(column, row)
-      row >= 0 && row < ENV['MAX_ROWS'].to_i && row < @game_board[column].count #&& row + 1 >= @game_board[column].count
+      row >= 0 && row < ENV['MAX_ROWS'].to_i && row < @game_board[column].count 
     end
 
     def is_new_row_valid?(column, row)
@@ -186,15 +187,6 @@ class ConnectFourGame
 
     def is_column_valid?(column)
       column >= 0 && column < ENV['MAX_COLUMNS'].to_i
-    end
-
-    def get_user(row)
-      if row.is_a? Hash
-        user = row["user"]
-      else
-        user = row.user
-      end
-      user
     end
   end
 end
