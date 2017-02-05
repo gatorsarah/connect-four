@@ -14,6 +14,7 @@ class ConnectFourController < ApplicationController
     @game.make_computers_move
 
     if @game.did_user_win? 'computer'
+      session.delete(:game_board)
       redirect_to new_game_path, :notice => "Computer won! Starting new game!"
     else
       session[:game_board] = @game.game_board
@@ -31,6 +32,7 @@ class ConnectFourController < ApplicationController
       session[:game_board] =  @game.game_board
       
       if @game.did_user_win? 'human'
+        session.delete(:game_board)
         redirect_to new_game_path, :notice => "Congratulations!  Starting new game!"
       else
         session[:game_board] = @game.game_board
