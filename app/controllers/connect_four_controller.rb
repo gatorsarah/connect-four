@@ -43,7 +43,6 @@ class ConnectFourController < ApplicationController
 
   def list_games
     @games_to_load = ConnectFourGame.all
-    puts @games_to_load
   end
 
   def load_game
@@ -58,7 +57,6 @@ class ConnectFourController < ApplicationController
     @game_loaded.column5.each { |item| @game.game_board[5] << {"user" => item}}
     @game_loaded.column6.each { |item| @game.game_board[6] << {"user" => item}}
 
-    puts @game.game_board
     session[:game_board] = @game.game_board
 
     user_count = 0

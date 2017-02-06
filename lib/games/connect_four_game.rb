@@ -17,20 +17,17 @@ class ConnectFourGame
     def make_computers_move
       #check to see if we need to block first
       moves_needed_for_blocking = find_possible_computer_moves 'human'
-      
-
-      moves_needed_for_blocking.sort_by! { |hash| hash[:count] }.reverse!
+      moves_needed_for_blocking.sort_by! { |hash| hash[:count] }
       moves_needed_for_blocking.reverse!
-            
+
       moves_needed_for_blocking.each do |move|
         return if made_move? move
       end
 
   
       moves_for_making_a_streak = find_possible_computer_moves 'computer'
-      moves_for_making_a_streak.sort_by! { |hash| hash[:count] }.reverse!
+      moves_for_making_a_streak.sort_by! { |hash| hash[:count] }
       moves_for_making_a_streak.reverse!
-      puts "Moves needed for blocking #{moves_needed_for_blocking}"
       
       moves_for_making_a_streak.each do |move|
         return if made_move? move
@@ -89,7 +86,7 @@ class ConnectFourGame
           column = column_to_check
         end
       else
-        if is_column_valid?(column_to_check) && is_new_row_valid?(column_to_check, move[:coord][1])
+        if is_column_valid?(column_to_check)# && is_new_row_smart?(column_to_check, move[:coord][1])
             column = column_to_check
         end
       end
