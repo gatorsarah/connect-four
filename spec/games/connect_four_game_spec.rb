@@ -76,11 +76,12 @@ describe Games::ConnectFourGame do
     game.game_board[3] << {'user' => 'human'}
     game.game_board[3] << {'user' => 'human'}
     game.game_board[4] << {'user' => 'human'}
-
+                            
+ 
     expect(game.game_board[4].count).to eq 1
     game.make_computers_move
- 
-    expect(game.game_board[4].count).to eq 2
+
+     expect(game.game_board[4].count).to eq 2
     expect(game.did_user_win? 'computer').to eq false
     expect(game.did_user_win? 'human').to eq false
     
